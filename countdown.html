@@ -5,27 +5,31 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- CSS -->
     <link type="text/css" href="styles.css" rel="stylesheet" />
 
+    <!-- Apple Widget JS -->
+    <script type='text/javascript' src='/System/Library/WidgetResources/AppleClasses/AppleInfoButton.js' charset='utf-8'/>
+    <script type='text/javascript' src='/System/Library/WidgetResources/AppleClasses/AppleAnimator.js' charset='utf-8'/>
+    <script type='text/javascript' src='/System/Library/WidgetResources/AppleClasses/AppleButton.js' charset='utf-8'/>
+
+    <!-- Countdown JS -->
     <script type="text/javascript" src="countdown.js"></script>
 </head>
 
-<body onload="Countdown.init('June 14, 2013');">
-
-        <h3>The Last of Us:</h3>
-        <span id="js-timeleft">00</span> Days
-
-        <br />
-        <br />
-
-        <!--<input type="date">
-
-        <br />
-        <br />-->
-
-        <span id="js-localstorage">Is not supported</span>
+<body onload="Loader();">
+    <div class="wrap">
+        <span class="pulse"></span>
+        <div class="wrap-inner wrap-inner_rounded wrap-inner_depth">
+            <div class="box box-vcenter">
+                <div class="box-hd">
+                    <h1 class="hdg hdg_h1 mix-hdg_center">The Last of Us:</h1>
+                </div>
+                <div class="box-bd mix-box-bd_center">
+                    <p class="mix-text_muted"><span id="js-timeleft">00</span> Days</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-<script type="text/javascript">
-    Storage.testStorage();
-</script>
 </html>

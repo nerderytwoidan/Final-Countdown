@@ -67,7 +67,8 @@ img {
 html {
     -webkit-text-size-adjust: none;
     -ms-text-size-adjust: none;
-    font-size: 16px;
+    font-size: 18px;
+    color: #ffffff;
 }
 
 /* Basic font family */
@@ -77,7 +78,7 @@ html, input, textarea, select, button {
 }
 
 body {
-    background: #e6e6e6;
+    background: none transparent;
     line-height: 1.4;
 }
 
@@ -112,4 +113,117 @@ textarea {
 ::-moz-focus-inner {
     border: 0;
     padding: 0;
+}
+
+/* ---------------------------------------------------------------------
+ Containers
+------------------------------------------------------------------------ */
+.wrap {
+    position: relative;
+    width: 300px;
+    height: 150px;
+    padding: 3px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    /*background: #e6e6e6;*/
+    background: #333333;
+    overflow: hidden;
+}
+
+.wrap-inner {
+    display: table;
+    height: 100%;
+    width: 100%;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    background: none rgba(255, 255, 255, .1);
+    box-shadow: 0 6px 12px rgba(255, 255, 255, .5) inset,
+                0 2px 3px rgba(255, 255, 255, .5) inset,
+                0 -2px 3px rgba(0, 0, 0, .25) inset;
+}
+
+/* ---------------------------------------------------------------------
+ Headings
+------------------------------------------------------------------------ */
+.hdg {
+    line-height: 1;
+}
+
+.hdg_h1 { font-size: 32px; }
+.hdg_h2 { font-size: 24px; }
+.hdg_h3 { font-size: 18px; }
+
+.mix-hdg_center { text-align: center; }
+
+/* ---------------------------------------------------------------------
+ Boxes
+------------------------------------------------------------------------ */
+.box {
+
+}
+
+.box-vcenter {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/***** Box headers *****/
+.box-hd {
+    padding: 3px;
+}
+
+/***** Box body *****/
+.box-bd {
+    padding: 3px;
+}
+
+.mix-box-bd_center { text-align: center; }
+
+/* ---------------------------------------------------------------------
+ Content Stuff
+------------------------------------------------------------------------ */
+.mix-text_muted {
+    color: #999999;
+}
+
+/* ---------------------------------------------------------------------
+ Second-interval pulsator
+------------------------------------------------------------------------ */
+.pulse {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    height: 50px;
+    width: 50px;
+    border: 5px solid rgba(200, 255, 255, .05);
+    border-radius: 50%;
+    opacity: 0.0;
+
+    -webkit-animation-name: 'pulsate';
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 1s;
+
+    animation-name: 'pulsate';
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-delay: 1s;
+}
+
+@-webkit-keyframes pulsate {
+    0%   { -webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+    50%  { opacity: 1.0; }
+    75%  { opacity: 0.75; }
+    100% { -webkit-transform: scale(4, 4); opacity: 0.0; }
+}
+
+@keyframes pulsate {
+    0%   { transform: scale(0.1, 0.1); opacity: 0.0;}
+    50%  { opacity: 1.0; }
+    75%  { opacity: 0.75; }
+    100% { transform: scale(4, 4); opacity: 0.0; }
 }

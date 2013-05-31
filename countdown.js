@@ -1,10 +1,18 @@
-/**
- * ----------------------------------------
+/* ----------------------------------------
+ * Loader
+ *
+ * Loads objects on body load.
+ * ---------------------------------------- */
+function Loader (argument) {
+    Countdown.init('June 14, 2013');
+    Storage.isSupported();
+}
+
+/* ----------------------------------------
  * Countdown
  *
  * Makes and instance of a countdown and updates the info on the page.
- * ----------------------------------------
- */
+ * ---------------------------------------- */
 var Countdown = Countdown || {};
 
 Countdown = {
@@ -43,13 +51,11 @@ Countdown = {
 };
 
 
-/**
- * ----------------------------------------
+/* ----------------------------------------
  * Storage
  *
  * Creates a unified and safe-to-use interface for localstorage.
- * ----------------------------------------
- */
+ * ---------------------------------------- */
 var Storage = Storage || {};
 
 Storage = {
@@ -60,13 +66,6 @@ Storage = {
             return true;
         } catch(e) {
             return false;
-        }
-    },
-
-    testStorage: function () {
-        if (Storage.isSupported) {
-            var ele = document.getElementById('js-localstorage');
-            ele.innerHTML = 'Is supported, bro!';
         }
     }
 };
