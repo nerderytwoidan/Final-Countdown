@@ -77,7 +77,7 @@ html, input, textarea, select, button {
 }
 
 body {
-    background: #e6e6e6 url(../images/bg-body.png) 0 0 repeat;
+    background: #e6e6e6;
     line-height: 1.4;
 }
 

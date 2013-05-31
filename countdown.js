@@ -1,3 +1,10 @@
+/**
+ * ----------------------------------------
+ * Countdown
+ *
+ * Makes and instance of a countdown and updates the info on the page.
+ * ----------------------------------------
+ */
 var Countdown = Countdown || {};
 
 Countdown = {
@@ -6,22 +13,17 @@ Countdown = {
     daysToEvent: 0,
 
     init: function(eventDate) {
-        // Countdown.eventDate = eventDate;
-
-        var today = new Date();
-        var eventDate = new Date(eventDate);
-
-        console.log(today);
-        console.log(eventDate);
-
-        var msBetweenDates = eventDate.getTime() - today.getTime();
-        this.daysToEvent = Math.floor(msBetweenDates / 1000 / 60 / 60 / 24);
-
-        console.log(this.daysToEvent);
+        Countdown.eventDate = eventDate;
         Countdown.counter();
     },
 
     timer: function () {
+        var today = new Date();
+        var eventDate = new Date(Countdown.eventDate);
+
+        var msBetweenDates = eventDate.getTime() - today.getTime();
+        Countdown.daysToEvent = Math.floor(msBetweenDates / 1000 / 60 / 60 / 24);
+
         if (Countdown.daysToEvent <= 0) {
             clearInterval(Countdown.counter);
             return;
@@ -40,16 +42,31 @@ Countdown = {
 
 };
 
+
+/**
+ * ----------------------------------------
+ * Storage
+ *
+ * Creates a unified and safe-to-use interface for localstorage.
+ * ----------------------------------------
+ */
 var Storage = Storage || {};
 
 Storage = {
-    isLocalStorageSupported: function() {
+    isSupported: function() {
         try {
             localStorage.setItem('localStorageTest', 'test');
             localStorage.removeItem('localStorageTest');
             return true;
         } catch(e) {
             return false;
+        }
+    },
+
+    testStorage: function () {
+        if (Storage.isSupported) {
+            var ele = document.getElementById('js-localstorage');
+            ele.innerHTML = 'Is supported, bro!';
         }
     }
 };
