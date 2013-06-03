@@ -63,11 +63,14 @@ img {
     outline: 0;
 }
 
+/* apply a natural box layout model to all elements -- thanks Paul Irish */
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
 /* Always show a vertical scrollbar, even when there is no scrolling */
 html {
     -webkit-text-size-adjust: none;
     -ms-text-size-adjust: none;
-    font-size: 18px;
+    font-size: 16px;
     color: #ffffff;
 }
 
@@ -115,19 +118,21 @@ textarea {
     padding: 0;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-inner-spin-button{
+    display: none;
+}
+
 /* ---------------------------------------------------------------------
  Containers
 ------------------------------------------------------------------------ */
 .wrap {
     position: relative;
-    width: 300px;
-    height: 150px;
-    padding: 3px;
+    width: 350px;
+    height: 42px;
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
     border-radius: 12px;
-    /*background: #e6e6e6;*/
-    background: #333333;
     overflow: hidden;
 }
 
@@ -135,51 +140,121 @@ textarea {
     display: table;
     height: 100%;
     width: 100%;
+    padding: 2px 10px;
+    border: 3px solid rgba(0, 0, 0, .75);
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
     border-radius: 12px;
-    background: none rgba(255, 255, 255, .1);
-    box-shadow: 0 6px 12px rgba(255, 255, 255, .5) inset,
+    background: none rgba(255, 255, 255, .12);
+}
+
+.wrap-inner_depth {
+    box-shadow: 0 10px 20px rgba(255, 255, 255, .25) inset,
                 0 2px 3px rgba(255, 255, 255, .5) inset,
                 0 -2px 3px rgba(0, 0, 0, .25) inset;
+}
+
+.wrap_pattern {
+    background: transparent url(linen.png) 0 0;
+}
+
+#front {
+    display: block;
+}
+
+#back {
+    display: none;
+}
+
+/* ---------------------------------------------------------------------
+ Grids
+------------------------------------------------------------------------ */
+.grid {
+    clear: both;
+    position: relative;
+}
+
+.grid:after {
+    clear: both;
+    content: ".";
+    display: block;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+
+.grid-col {
+    float: left;
+    padding: 0 1.01466%;
+}
+
+.grid-col_1of12  { width: 8.33333%; }
+.grid-col_2of12  { width: 16.66666%; }
+.grid-col_3of12  { width: 25%; }
+.grid-col_4of12  { width: 33.33333%; }
+.grid-col_5of12  { width: 41.66666%; }
+.grid-col_6of12  { width: 50%; }
+.grid-col_7of12  { width: 58.33333%; }
+.grid-col_8of12  { width: 66.66666%; }
+.grid-col_9of12  { width: 75%; }
+.grid-col_10of12 { width: 83.33333%; }
+.grid-col_11of12 { width: 91.66666%; }
+.grid-col_12of12 { width: 100%; }
+
+/* ----- Column variations ----- */
+.grid-col-solid { background-color: #ffffff; }
+.grid-col-thin  { padding: 0; }
+.grid-col-centerInRow {
+    margin: 0 auto;
+    float: none;
+}
+
+.grid_vcenter {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 /* ---------------------------------------------------------------------
  Headings
 ------------------------------------------------------------------------ */
 .hdg {
-    line-height: 1;
+    text-shadow: 0 1px #000000;
 }
 
-.hdg_h1 { font-size: 32px; }
-.hdg_h2 { font-size: 24px; }
-.hdg_h3 { font-size: 18px; }
+.hdg_h1 { font-size: 28px; }
+.hdg_h2 { font-size: 20px; }
+.hdg_h3 { font-size: 16px; }
 
 .mix-hdg_center { text-align: center; }
 
+
 /* ---------------------------------------------------------------------
- Boxes
+ Headers (contain instances of .hdg)
 ------------------------------------------------------------------------ */
-.box {
+.hdr { margin: 5px 0; }
+
+.hdr_min { margin: 0; }
+.hdr_emphasisMed { margin: 8px 0; }
+
+.hdr_pad { padding: 0 5px; }
+.hdr_padMed { padding: 0 8px; }
+
+
+.mix-hdr_center { text-align: center; }
+.mix-hdr_right  { text-align: right; }
+
+
+/* ---------------------------------------------------------------------
+ Lists
+------------------------------------------------------------------------ */
+.hList {
 
 }
 
-.box-vcenter {
-    display: table-cell;
-    vertical-align: middle;
+.hList > * {
+    display: inline-block;
 }
-
-/***** Box headers *****/
-.box-hd {
-    padding: 3px;
-}
-
-/***** Box body *****/
-.box-bd {
-    padding: 3px;
-}
-
-.mix-box-bd_center { text-align: center; }
 
 /* ---------------------------------------------------------------------
  Content Stuff
@@ -189,15 +264,48 @@ textarea {
 }
 
 /* ---------------------------------------------------------------------
+ Form elements
+------------------------------------------------------------------------ */
+.inpt {
+    height: 25px;
+    padding: 4px;
+    margin: 4px 2px;
+    border: 1px solid #444444;
+    border-color: #333333 #555555 #666666 #444444;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    background: none rgba(255, 255, 255, .15);
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.inpt_sml { width: 95px; }
+.inpt_med { width: 150px; }
+
+/* ---------------------------------------------------------------------
+ Buttons
+------------------------------------------------------------------------ */
+.btnWrap_info {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+/* ---------------------------------------------------------------------
  Second-interval pulsator
 ------------------------------------------------------------------------ */
 .pulse {
     position: absolute;
-    top: 30%;
-    left: 40%;
+    top: 0;
+    left: 45%;
     height: 50px;
     width: 50px;
-    border: 5px solid rgba(200, 255, 255, .05);
+    border: 5px solid rgba(200, 255, 255, .025);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
     border-radius: 50%;
     opacity: 0.0;
 

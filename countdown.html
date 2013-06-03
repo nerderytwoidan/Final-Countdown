@@ -8,26 +8,58 @@
     <!-- CSS -->
     <link type="text/css" href="styles.css" rel="stylesheet" />
 
-    <!-- Apple Widget JS -->
-    <script type='text/javascript' src='/System/Library/WidgetResources/AppleClasses/AppleInfoButton.js' charset='utf-8'/>
-    <script type='text/javascript' src='/System/Library/WidgetResources/AppleClasses/AppleAnimator.js' charset='utf-8'/>
-    <script type='text/javascript' src='/System/Library/WidgetResources/AppleClasses/AppleButton.js' charset='utf-8'/>
-
     <!-- Countdown JS -->
     <script type="text/javascript" src="countdown.js"></script>
+
+    <!-- Apple Widget JS -->
+    <script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleInfoButton.js"></script>
+    <script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleButton.js"></script>
+    <script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleAnimator.js"></script>
+
+    <script type="text/javascript" src="lib-apple/AppleInfoButton.js"></script>
+    <script type="text/javascript" src="lib-apple/AppleAnimator.js"></script>
+    <script type="text/javascript" src="lib-apple/AppleButton.js"></script>
 </head>
 
-<body onload="Loader();">
-    <div class="wrap">
-        <span class="pulse"></span>
-        <div class="wrap-inner wrap-inner_rounded wrap-inner_depth">
-            <div class="box box-vcenter">
-                <div class="box-hd">
-                    <h1 class="hdg hdg_h1 mix-hdg_center">The Last of Us:</h1>
+<body onload="Loader();" style="background: none #333;">
+    <div id="front">
+        <div class="wrap">
+            <span class="pulse"></span>
+            <div class="wrap-inner wrap-inner_depth">
+                <div class="grid grid-vcenter">
+                    <div class="grid-col grid-col_8of12">
+                        <div class="hdr">
+                            <h1 class="hdg" id="js-eventtitle">Event Title</h1>
+                        </div>
+                    </div>
+                    <div class="grid-col grid-col_4of12">
+                        <div class="hdr mix-hdr_right">
+                            <p class="mix-text_muted"><span id="js-timeleft">00</span> Days</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="box-bd mix-box-bd_center">
-                    <p class="mix-text_muted"><span id="js-timeleft">00</span> Days</p>
-                </div>
+            </div>
+            <div id="js-infobutton"></div>
+        </div>
+    </div>
+    <div id="back">
+        <div class="wrap wrap_pattern">
+            <div class="wrap-inner">
+                <form id="js-countdownform">
+                    <ul class="hList">
+                        <li>
+                            <input class="inpt inpt_med" type="text" placeholder="Event title" id="js-titlevalue" />
+                        </li>
+                        <li>
+                            <input class="inpt inpt_sml" type="text" placeholder="YYYY/MM/DD" id="js-datevalue" />
+                        </li>
+                        <li>
+                            <div id="js-saveevent" class="btnWrap_info">
+
+                            </div>
+                        </li>
+                    </ul>
+                </form>
             </div>
         </div>
     </div>

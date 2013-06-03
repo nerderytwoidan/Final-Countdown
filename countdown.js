@@ -1,12 +1,16 @@
+var gDoneButton;
+var gInfoButton;
+
 /* ----------------------------------------
- * Loader
+ * Loaders
  *
  * Loads objects on body load.
  * ---------------------------------------- */
-function Loader (argument) {
-    Countdown.init('June 14, 2013');
-    Storage.isSupported();
+var Loader = function () {
+    gDoneButton = new AppleGlassButton(document.getElementById("js-saveevent"), "Done", Prefs.flipToFront);
+    gInfoButton = new AppleInfoButton(document.getElementById("js-infobutton"), document.getElementById("front"), "white", "white", Prefs.flipToBack);
 }
+
 
 /* ----------------------------------------
  * Countdown
@@ -37,7 +41,12 @@ Countdown = {
             return;
         }
 
-        Countdown.updateText(document.getElementById('js-timeleft'), Countdown.daysToEvent);
+        if (Countdown.daysToEvent === NaN) {
+            Countdown.updateText(document.getElementById('js-timeleft'), '??');
+            Countdown.updateText(document.getElementById('js-eventtitle'), 'Not a valid date!');
+        } else {
+            Countdown.updateText(document.getElementById('js-timeleft'), Countdown.daysToEvent);
+        }
     },
 
     counter: function () {
@@ -52,20 +61,68 @@ Countdown = {
 
 
 /* ----------------------------------------
- * Storage
+ * Preferences
  *
- * Creates a unified and safe-to-use interface for localstorage.
+ * Handles the preference related methods.
  * ---------------------------------------- */
-var Storage = Storage || {};
+var Prefs = Prefs || {};
 
-Storage = {
+Prefs = {
     isSupported: function() {
         try {
-            localStorage.setItem('localStorageTest', 'test');
-            localStorage.removeItem('localStorageTest');
+            widget.setPreferenceForKey("widgetLoaded", "true");
             return true;
         } catch(e) {
             return false;
         }
+    },
+
+    flipToBack: function () {
+        var front = document.getElementById('front');
+        var back  = document.getElementById('back');
+
+        if (window.widget)
+            widget.prepareForTransition("ToBack");
+
+        front.style.display = "none";
+        back.style.display = "block";
+
+        if (window.widget) {
+            setTimeout ('widget.performTransition();', 0);
+        }
+    },
+
+    flipToFront: function () {
+        var front = document.getElementById("front");
+        var back = document.getElementById("back");
+
+        if (window.widget) {
+            widget.prepareForTransition("ToFront");
+        }
+
+        back.style.display = "none";
+        front.style.display = "block";
+
+        if (window.widget) {
+            setTimeout ('widget.performTransition();', 0);
+
+            // save inputted title and date
+            var titleValue = document.getElementById('js-titlevalue').value;
+            var dateValue = document.getElementById('js-datevalue').value;
+            widget.setPreferenceForKey(titleValue, 'title');
+            widget.setPreferenceForKey(dateValue, 'date');
+        }
+
+        // update title and date texts on front
+        Countdown.updateText(document.getElementById('js-eventtitle'), titleValue);
+        Countdown.init(dateValue);
     }
 };
+
+
+
+
+
+
+
+
