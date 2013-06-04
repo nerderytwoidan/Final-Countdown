@@ -20,19 +20,17 @@ var Loader = function () {
 var Countdown = Countdown || {};
 
 Countdown = {
-
     eventDate: '',
     daysToEvent: 0,
 
     init: function(eventDate) {
         Countdown.eventDate = eventDate;
+        Countdown.reset();
         Countdown.counter();
     },
 
     timer: function () {
-        console.log(Countdown.eventDate);
-
-
+        console.log('running counter');
         var today = new Date();
         var eventDate = new Date(Countdown.eventDate);
 
@@ -44,12 +42,7 @@ Countdown = {
             return;
         }
 
-        // console.log(today);
-        // console.log(Validate.isValidDate(eventDate));
-        // console.log(Countdown.daysToEvent);
-        // console.log(Validate.isInt(Countdown.daysToEvent));
-
-        if (Validate.isInt(Countdown.daysToEvent)) {
+        if (Validate.isValidDate(Countdown.daysToEvent) && Validate.isInt(Countdown.daysToEvent)) {
             Countdown.updateText(document.getElementById('js-timeleft'), Countdown.daysToEvent);
         } else {
             Countdown.updateText(document.getElementById('js-timeleft'), '??');
@@ -59,6 +52,11 @@ Countdown = {
 
     counter: function () {
         return setInterval(Countdown.timer, 1000)
+    },
+
+    reset: function () {
+        clearInterval(Countdown.counter);
+        Countdown.counter = 0;
     },
 
     updateText: function (ele, text) {
@@ -112,7 +110,7 @@ Prefs = {
 
         back.style.display = "none";
         front.style.display = "block";
-        
+
         titleValue = document.getElementById('js-titlevalue').value;
         dateValue = document.getElementById('js-datevalue').value;
 
