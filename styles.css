@@ -149,13 +149,14 @@ input[type="date"]::-webkit-inner-spin-button{
 }
 
 .wrap-inner_depth {
-    box-shadow: 0 10px 20px rgba(255, 255, 255, .25) inset,
-                0 2px 3px rgba(255, 255, 255, .5) inset,
+    box-shadow: 0 8px 16px rgba(255, 255, 255, .35) inset,
+                0 1px 1px rgba(255, 255, 255, .25) inset,
                 0 -2px 3px rgba(0, 0, 0, .25) inset;
 }
 
-.wrap_pattern {
-    background: transparent url(linen.png) 0 0;
+.wrap-inner_pattern {
+    background-image: url(linen.png);
+    background-clip: border-box;
 }
 
 #front {

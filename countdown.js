@@ -22,11 +22,11 @@ var Countdown = Countdown || {};
 Countdown = {
     eventDate: '',
     daysToEvent: 0,
+    counter: null,
 
     init: function(eventDate) {
         Countdown.eventDate = eventDate;
-        Countdown.reset();
-        Countdown.counter();
+        Countdown.setCounter();
     },
 
     timer: function () {
@@ -42,7 +42,7 @@ Countdown = {
             return;
         }
 
-        if (Validate.isValidDate(Countdown.daysToEvent) && Validate.isInt(Countdown.daysToEvent)) {
+        if (Validate.isValidDate(Countdown.eventDate) && Validate.isInt(Countdown.daysToEvent)) {
             Countdown.updateText(document.getElementById('js-timeleft'), Countdown.daysToEvent);
         } else {
             Countdown.updateText(document.getElementById('js-timeleft'), '??');
@@ -50,13 +50,9 @@ Countdown = {
         }
     },
 
-    counter: function () {
-        return setInterval(Countdown.timer, 1000)
-    },
-
-    reset: function () {
+    setCounter: function () {
         clearInterval(Countdown.counter);
-        Countdown.counter = 0;
+        Countdown.counter = setInterval(Countdown.timer, 1000);
     },
 
     updateText: function (ele, text) {
