@@ -30,6 +30,9 @@ Countdown = {
     },
 
     timer: function () {
+        console.log(Countdown.eventDate);
+
+
         var today = new Date();
         var eventDate = new Date(Countdown.eventDate);
 
@@ -41,11 +44,16 @@ Countdown = {
             return;
         }
 
-        if (Countdown.daysToEvent === NaN) {
+        // console.log(today);
+        // console.log(Validate.isValidDate(eventDate));
+        // console.log(Countdown.daysToEvent);
+        // console.log(Validate.isInt(Countdown.daysToEvent));
+
+        if (Validate.isInt(Countdown.daysToEvent)) {
+            Countdown.updateText(document.getElementById('js-timeleft'), Countdown.daysToEvent);
+        } else {
             Countdown.updateText(document.getElementById('js-timeleft'), '??');
             Countdown.updateText(document.getElementById('js-eventtitle'), 'Not a valid date!');
-        } else {
-            Countdown.updateText(document.getElementById('js-timeleft'), Countdown.daysToEvent);
         }
     },
 
@@ -95,6 +103,8 @@ Prefs = {
     flipToFront: function () {
         var front = document.getElementById("front");
         var back = document.getElementById("back");
+        var titleValue;
+        var dateValue;
 
         if (window.widget) {
             widget.prepareForTransition("ToFront");
@@ -102,20 +112,41 @@ Prefs = {
 
         back.style.display = "none";
         front.style.display = "block";
+        
+        titleValue = document.getElementById('js-titlevalue').value;
+        dateValue = document.getElementById('js-datevalue').value;
 
         if (window.widget) {
             setTimeout ('widget.performTransition();', 0);
 
             // save inputted title and date
-            var titleValue = document.getElementById('js-titlevalue').value;
-            var dateValue = document.getElementById('js-datevalue').value;
             widget.setPreferenceForKey(titleValue, 'title');
             widget.setPreferenceForKey(dateValue, 'date');
         }
 
         // update title and date texts on front
         Countdown.updateText(document.getElementById('js-eventtitle'), titleValue);
+        Countdown.eventDate = dateValue;
         Countdown.init(dateValue);
+    }
+};
+
+/* ----------------------------------------
+ * Validator
+ *
+ * Holds methods to validate certain types
+ * of inputs.
+ * ---------------------------------------- */
+var Validate = Validate || {};
+
+Validate = {
+    isInt: function (value) { 
+        return !isNaN(parseInt(value,10)) && (parseFloat(value,10) == parseInt(value,10)); 
+    },
+
+    isValidDate: function (dateString) {
+        var d = new Date(dateString);
+        return d instanceof Date && isFinite(d);
     }
 };
 
