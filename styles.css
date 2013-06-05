@@ -233,6 +233,7 @@ input[type="date"]::-webkit-inner-spin-button{
 
 .hdr_min { margin: 0; }
 .hdr_emphasisMed { margin: 8px 0; }
+.hdr_leading     { margin: 10px 0 0; }
 
 .hdr_pad { padding: 0 5px; }
 .hdr_padMed { padding: 0 8px; }
@@ -253,26 +254,24 @@ input[type="date"]::-webkit-inner-spin-button{
     display: inline-block;
 }
 
+.mix-hList_vcenter > * { vertical-align: middle; }
+
 /* ---------------------------------------------------------------------
  Content Stuff
 ------------------------------------------------------------------------ */
 .text_tiny {
-    font-size: 9px;
+    font-size: 10px;
+    line-height: 1;
 }
 
 .text_tiny:empty {
     height: 0;
 }
 
-.text_overlap {
-    line-height: 1;
-    margin: -2px 0 0;
-}
-
 .mix-text_oneline { white-space: nowrap; }
 .mix-text_upper   { text-transform: uppercase; }
 .mix-text_hilight { color: #bada55; }
-.mix-text_muted   { color: #999999; }
+.mix-text_muted   { color: #aaaaaa; }
 
 /* ---------------------------------------------------------------------
  Form elements
@@ -292,8 +291,12 @@ input[type="date"]::-webkit-inner-spin-button{
     font-size: 12px;
 }
 
-.inpt_sml { width: 95px; }
-.inpt_med { width: 150px; }
+.inpt_sml { width: 85px; }
+.inpt_med { width: 170px; }
+
+.label-date {
+    display: none;
+}
 
 /* ---------------------------------------------------------------------
  Buttons
@@ -304,10 +307,47 @@ input[type="date"]::-webkit-inner-spin-button{
     bottom: 16px;
 }
 
+
+/* ---------------------------------------------------------------------
+ Day Progress Indicator
+------------------------------------------------------------------------ */
+.progress {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+}
+
+.progress_isBeforeHalf {
+    clip: rect(0, 60px, 60px, 30px);
+}
+
+.progress-circle {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #999999;
+    border-radius: 50%;
+    position: absolute;
+    clip: rect(0, 30px, 60px, 0);
+}
+
+.progress-circle_firsthalf {
+    -webkit-transform: rotate(0deg); /* goes from 0 to 180 degrees for 0-50% */
+}
+
+.progress-circle_lasthalf {
+    -webkit-transform: rotate(180deg); /* goes from 180 to 360 degrees for 50-100% */
+}
+
+.progress_isBeforeHalf .progress-circle_lasthalf {
+    visibility: hidden;
+}
+
+
+
 /* ---------------------------------------------------------------------
  Second-interval pulsator
 ------------------------------------------------------------------------ */
-.pulse {
+/*.pulse {
     position: absolute;
     top: -50px;
     left: 100px;
@@ -349,4 +389,4 @@ input[type="date"]::-webkit-inner-spin-button{
     50%  { opacity: 1.0; }
     75%  { opacity: 0.1; }
     100% { transform: scale(2.5, 2.5); opacity: 0.0; }
-}
+}*/

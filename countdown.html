@@ -12,29 +12,28 @@
     <script type="text/javascript" src="countdown.js"></script>
 
     <!-- Apple Widget JS -->
-    <script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleInfoButton.js"></script>
+    <!--<script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleInfoButton.js"></script>
     <script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleButton.js"></script>
-    <script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleAnimator.js"></script>
+    <script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleAnimator.js"></script>-->
 
-    <!--<script type="text/javascript" src="lib-apple/AppleInfoButton.js"></script>
+    <script type="text/javascript" src="lib-apple/AppleInfoButton.js"></script>
     <script type="text/javascript" src="lib-apple/AppleAnimator.js"></script>
-    <script type="text/javascript" src="lib-apple/AppleButton.js"></script>-->
+    <script type="text/javascript" src="lib-apple/AppleButton.js"></script>
 </head>
 
 <body onload="Loader();">
     <div id="front">
         <div class="wrap">
-            <span class="pulse"></span>
             <div class="wrap-inner wrap-inner_depth">
                 <div class="grid grid-vcenter">
-                    <div class="grid-col grid-col_9of12">
-                        <div class="hdr">
-                            <h1 class="hdg" id="js-eventtitle">Event Title</h1>
+                    <div class="grid-col grid-col_8of12">
+                        <div class="hdr hdr_leading">
+                            <h1 class="hdg" id="js-eventtitle">Flip to add event</h1>
                         </div>
                     </div>
-                    <div class="grid-col grid-col_3of12">
+                    <div class="grid-col grid-col_4of12">
                         <div class="hdr mix-hdr_right">
-                            <p class="mix-text_hilight mix-text_oneline"><span id="js-timeleft">00</span> <span id="js-daylabel">Days</span></p>
+                            <p class="mix-text_hilight mix-text_oneline"><span id="js-timeleft">Today</span> <span class="label-date" id="js-daylabel">Days</span></p>
                             <p class="text_tiny text_overlap mix-text_muted mix-text_upper mix-text_oneline"><span id="js-datedisplay"></span></p>
                         </div>
                     </div>
@@ -42,12 +41,16 @@
             </div>
             <div id="js-infobutton" class="btnWrap_info"></div>
         </div>
+        <div class="progress progress_isBeforeHalf" id="js-progress">
+            <span class="progress-circle progress-circle_firsthalf" id="js-progress-firsthalf"></span>
+            <span class="progress-circle progress-circle_lasthalf" id="js-progress-lasthalf"></span>
+        </div>
     </div>
     <div id="back">
         <div class="wrap">
             <div class="wrap-inner wrap-inner_pattern">
                 <form id="js-countdownform">
-                    <ul class="hList">
+                    <ul class="hList mix-hList_vcenter">
                         <li>
                             <input class="inpt inpt_med" type="text" placeholder="Event title" id="js-titlevalue" />
                         </li>
@@ -55,7 +58,7 @@
                             <input class="inpt inpt_sml" type="text" placeholder="YYYY/MM/DD" id="js-datevalue" />
                         </li>
                         <li>
-                            <div id="js-saveevent" class="btnWrap_info">
+                            <div id="js-saveevent">
 
                             </div>
                         </li>

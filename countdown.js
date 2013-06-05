@@ -33,6 +33,8 @@ var monthsOfYear = [
 var Loader = function () {
     gDoneButton = new AppleGlassButton(document.getElementById("js-saveevent"), "Done", Prefs.flipToFront);
     gInfoButton = new AppleInfoButton(document.getElementById("js-infobutton"), document.getElementById("front"), "white", "white", Prefs.flipToBack);
+
+    Countdown.init(new Date());
 }
 
 
@@ -46,6 +48,7 @@ var Countdown = Countdown || {};
 Countdown = {
     eventDate: '',
     daysToEvent: 0,
+    percentOfDayComplete: 0,
     counter: null,
 
     init: function(eventDate) {
@@ -59,6 +62,10 @@ Countdown = {
 
         var msBetweenDates = eventDate.getTime() - today.getTime();
         Countdown.daysToEvent = Math.floor(msBetweenDates / 1000 / 60 / 60 / 24) + 1;
+        Countdown.percentOfDayComplete = (1 - msBetweenDates / 1000 / 60 / 60 / 24 % 1) * 100;
+
+        // update progress indicator circle with percentage
+        Progress.updateMeter(Countdown.percentOfDayComplete);
 
         if (Countdown.daysToEvent == 0) {
             document.getElementById('js-daylabel').style.display = 'none';
@@ -84,10 +91,65 @@ Countdown = {
 
     updateText: function (ele, text) {
         ele.innerHTML = text;
+    },
+
+    getFormattedDate: function (dateObj) {
+        if (Validate.isValidDate(dateObj)) {
+            return daysOfWeek[dateObj.getDay()] + ', ' + monthsOfYear[dateObj.getMonth()] + ' ' + dateObj.getDate() + ', ' + dateObj.getFullYear();
+        } else {
+            return '????/??/??';
+        }
     }
 
 };
 
+/* ----------------------------------------
+ * Progress Indicator
+ *
+ * Makes a circle progress indicator to tell
+ * the user what % completed of the day
+ * that the current time is.
+ * ---------------------------------------- */
+var Progress = Progress || {};
+
+Progress = {
+    wrapper:   null,
+    firstHalf: null,
+    lastHalf:  null,
+
+    degsFirstHalf: 0,
+    degsLastHalf:  0,
+
+    BEFORE_HALF_CLASS: 'progress_isBeforeHalf',
+
+    setElements: function () {
+        this.wrapper = document.getElementById('js-progress');
+        this.firstHalf = document.getElementById('js-progress-firsthalf');
+        this.lastHalf = document.getElementById('js-progress-lasthalf');
+    },
+
+    updateMeter: function (percentOfDay) {
+        // set Progress object elements
+        if (!this.wrapper) {
+            this.setElements();
+        }
+
+        if (percentOfDay < 50) {
+            this.wrapper.classList.add(this.BEFORE_HALF_CLASS);
+
+            this.degsFirstHalf = 360 * (percentOfDay / 100);
+            this.degsLastHalf = 180;
+        } else {
+            this.wrapper.classList.remove(this.BEFORE_HALF_CLASS);
+
+            this.degsFirstHalf = 180;
+            this.degsLastHalf = (360 * (percentOfDay / 100));
+        }
+
+        this.firstHalf.style.webkitTransform = 'rotate(' + this.degsFirstHalf + 'deg)';
+        this.lastHalf.style.webkitTransform = 'rotate(' + this.degsLastHalf + 'deg)';
+    }
+};
 
 /* ----------------------------------------
  * Preferences
@@ -148,10 +210,7 @@ Prefs = {
 
         // update title and date texts on front
         var d = new Date(dateValue);
-        if (Validate.isValidDate(d)) {
-            formattedDate = daysOfWeek[d.getDay()] + ', ' + monthsOfYear[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
-            Countdown.updateText(document.getElementById('js-datedisplay'), formattedDate);
-        }
+        Countdown.updateText(document.getElementById('js-datedisplay'), Countdown.getFormattedDate(d));
         Countdown.updateText(document.getElementById('js-eventtitle'), titleValue);
         Countdown.eventDate = dateValue;
         Countdown.init(dateValue);
@@ -167,8 +226,8 @@ Prefs = {
 var Validate = Validate || {};
 
 Validate = {
-    isInt: function (value) { 
-        return !isNaN(parseInt(value,10)) && (parseFloat(value,10) == parseInt(value,10)); 
+    isInt: function (value) {
+        return !isNaN(parseInt(value,10)) && (parseFloat(value,10) == parseInt(value,10));
     },
 
     isValidDate: function (dateString) {
