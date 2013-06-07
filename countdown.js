@@ -61,7 +61,7 @@ Countdown = {
         var eventDate = new Date(Countdown.eventDate);
 
         var msBetweenDates = eventDate.getTime() - today.getTime();
-        Countdown.daysToEvent = Math.floor(msBetweenDates / 1000 / 60 / 60 / 24) + 1;
+        Countdown.daysToEvent = Math.ceil(msBetweenDates / 1000 / 60 / 60 / 24);
         Countdown.percentOfDayComplete = (1 - msBetweenDates / 1000 / 60 / 60 / 24 % 1) * 100;
 
         // update progress indicator circle with percentage
