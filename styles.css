@@ -128,7 +128,7 @@ input[type="date"]::-webkit-inner-spin-button{
 ------------------------------------------------------------------------ */
 .wrap {
     position: relative;
-    width: 350px;
+    width: 200px;
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
     border-radius: 12px;
@@ -145,6 +145,10 @@ input[type="date"]::-webkit-inner-spin-button{
     -moz-border-radius: 12px;
     border-radius: 12px;
     background: none rgba(0, 0, 0, .95);
+}
+
+.wrap-inner_padded {
+    padding: 10px;
 }
 
 .wrap-inner_depth {
@@ -220,6 +224,7 @@ input[type="date"]::-webkit-inner-spin-button{
 ------------------------------------------------------------------------ */
 .hdg {
     text-shadow: 0 1px #000000;
+    line-height: 1.1;
 }
 
 .hdg_h1 { font-size: 18px; }
@@ -229,7 +234,11 @@ input[type="date"]::-webkit-inner-spin-button{
 /* ---------------------------------------------------------------------
  Headers (contain instances of .hdg)
 ------------------------------------------------------------------------ */
-.hdr { margin: 5px 0; }
+.hdr {
+    margin: 5px 0;
+    position: relative;
+    z-index: 5;
+}
 
 .hdr_min { margin: 0; }
 .hdr_emphasisMed { margin: 8px 0; }
@@ -238,6 +247,11 @@ input[type="date"]::-webkit-inner-spin-button{
 .hdr_pad { padding: 0 5px; }
 .hdr_padMed { padding: 0 8px; }
 
+.hdr_dateinfo {
+    height: 100px;
+    padding: 25px 0 0;
+    margin: -5px 0 0;
+}
 
 .mix-hdr_center { text-align: center; }
 .mix-hdr_right  { text-align: right; }
@@ -264,6 +278,10 @@ input[type="date"]::-webkit-inner-spin-button{
     line-height: 1;
 }
 
+.text_large {
+    font-size: 24px;
+}
+
 .text_tiny:empty {
     height: 0;
 }
@@ -271,7 +289,7 @@ input[type="date"]::-webkit-inner-spin-button{
 .mix-text_oneline { white-space: nowrap; }
 .mix-text_upper   { text-transform: uppercase; }
 .mix-text_hilight { color: #bada55; }
-.mix-text_muted   { color: #aaaaaa; }
+.mix-text_muted   { color: #cccccc; }
 
 /* ---------------------------------------------------------------------
  Form elements
@@ -312,22 +330,25 @@ input[type="date"]::-webkit-inner-spin-button{
  Day Progress Indicator
 ------------------------------------------------------------------------ */
 .progress {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
+    margin-top: -10px;
     position: absolute;
+    left: 50px;
+    z-index: 2;
 }
 
 .progress_isBeforeHalf {
-    clip: rect(0, 60px, 60px, 30px);
+    clip: rect(0, 100px, 100px, 50px);
 }
 
 .progress-circle {
-    width: 60px;
-    height: 60px;
-    border: 5px solid #999999;
+    width: 100px;
+    height: 100px;
+    border: 20px solid #222222;
     border-radius: 50%;
     position: absolute;
-    clip: rect(0, 30px, 60px, 0);
+    clip: rect(0, 50px, 100px, 0);
 }
 
 .progress-circle_firsthalf {
@@ -342,7 +363,29 @@ input[type="date"]::-webkit-inner-spin-button{
     visibility: hidden;
 }
 
+.progress-hand {
+    height: 100px;
+    width: 100px;
+    display: block;
 
+    -webkit-transform: rotate(0deg);
+}
+
+.progress-hand:after {
+    content: '';
+    height: 50px;
+    width: 3px;
+    display: block;
+    margin-left: 50px;
+    /*background-color: #bada55;*/
+    background-color: #6D8032;
+
+    -webkit-animation-name: 'pulsate';
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 1s;
+}
 
 /* ---------------------------------------------------------------------
  Second-interval pulsator
@@ -375,18 +418,20 @@ input[type="date"]::-webkit-inner-spin-button{
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     animation-delay: 1s;
-}
+}*/
 
 @-webkit-keyframes pulsate {
-    0%   { -webkit-transform: scale(0.1, 0.1); opacity: 0.35;}
-    50%  { opacity: 1.0; }
-    75%  { opacity: 0.1; }
-    100% { -webkit-transform: scale(2.5, 2.5); opacity: 0.0; }
+    0%   { opacity: 0.75; }
+    78%  { opacity: 0.75; }
+    80%  { opacity: 1; }
+    82%  { opacity: 0.9; }
+    100% { opacity: 0.75; }
 }
 
 @keyframes pulsate {
-    0%   { transform: scale(0.1, 0.1); opacity: 0.35;}
-    50%  { opacity: 1.0; }
-    75%  { opacity: 0.1; }
-    100% { transform: scale(2.5, 2.5); opacity: 0.0; }
-}*/
+    0%   { opacity: 0.75; }
+    78%  { opacity: 0.75; }
+    80%  { opacity: 1; }
+    82%  { opacity: 0.9; }
+    100% { opacity: 0.75; }
+}

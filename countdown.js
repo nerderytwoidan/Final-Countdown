@@ -34,7 +34,10 @@ var Loader = function () {
     gDoneButton = new AppleGlassButton(document.getElementById("js-saveevent"), "Done", Prefs.flipToFront);
     gInfoButton = new AppleInfoButton(document.getElementById("js-infobutton"), document.getElementById("front"), "white", "white", Prefs.flipToBack);
 
-    Countdown.init(new Date());
+    var d = new Date();
+    var todayString = '' + d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
+
+    Countdown.init(todayString);
 }
 
 
@@ -62,7 +65,9 @@ Countdown = {
 
         var msBetweenDates = eventDate.getTime() - today.getTime();
         Countdown.daysToEvent = Math.ceil(msBetweenDates / 1000 / 60 / 60 / 24);
-        Countdown.percentOfDayComplete = (1 - msBetweenDates / 1000 / 60 / 60 / 24 % 1) * 100;
+        Countdown.percentOfDayComplete = 1 - (msBetweenDates / 1000 / 60 / 60 / 24 % 1);
+
+        console.log(Countdown.percentOfDayComplete);
 
         // update progress indicator circle with percentage
         Progress.updateMeter(Countdown.percentOfDayComplete);
@@ -116,38 +121,46 @@ Progress = {
     wrapper:   null,
     firstHalf: null,
     lastHalf:  null,
+    hand:      null,
 
     degsFirstHalf: 0,
     degsLastHalf:  0,
+    degsHand:      0,
 
     BEFORE_HALF_CLASS: 'progress_isBeforeHalf',
 
     setElements: function () {
+        if (this.wrapper) {
+            return;
+        }
+
         this.wrapper = document.getElementById('js-progress');
         this.firstHalf = document.getElementById('js-progress-firsthalf');
         this.lastHalf = document.getElementById('js-progress-lasthalf');
+        this.hand = document.getElementById('js-progress-hand');
     },
 
     updateMeter: function (percentOfDay) {
         // set Progress object elements
-        if (!this.wrapper) {
-            this.setElements();
-        }
+        this.setElements();
 
-        if (percentOfDay < 50) {
+        if (percentOfDay * 100 <= 50) {
             this.wrapper.classList.add(this.BEFORE_HALF_CLASS);
 
-            this.degsFirstHalf = 360 * (percentOfDay / 100);
+            this.degsFirstHalf = 360 * percentOfDay;
             this.degsLastHalf = 180;
         } else {
             this.wrapper.classList.remove(this.BEFORE_HALF_CLASS);
 
             this.degsFirstHalf = 180;
-            this.degsLastHalf = (360 * (percentOfDay / 100));
+            this.degsLastHalf = 360 * percentOfDay;
         }
+
+        this.degsHand = Math.floor(360 * percentOfDay);
 
         this.firstHalf.style.webkitTransform = 'rotate(' + this.degsFirstHalf + 'deg)';
         this.lastHalf.style.webkitTransform = 'rotate(' + this.degsLastHalf + 'deg)';
+        this.hand.style.webkitTransform = 'rotate(' + this.degsHand + 'deg)';
     }
 };
 
