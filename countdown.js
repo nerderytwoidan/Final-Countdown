@@ -37,7 +37,14 @@ var Loader = function () {
     var d = new Date();
     var todayString = '' + d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
 
-    Countdown.init(todayString);
+    var existingTitle = Storage.get('countdownTitle');
+    var existingDate = Storage.get('countdownDate');
+
+    if (existingDate && existingTitle) {
+        Countdown.init(existingDate, existingTitle);
+    } else {
+        Countdown.init(todayString, 'Today');
+    }
 }
 
 
@@ -50,12 +57,18 @@ var Countdown = Countdown || {};
 
 Countdown = {
     eventDate: '',
+    eventTitle: '',
     daysToEvent: 0,
     percentOfDayComplete: 0,
     counter: null,
 
-    init: function(eventDate) {
+    init: function(eventDate, eventTitle) {
         Countdown.eventDate = eventDate;
+        Countdown.eventTitle = eventTitle;
+
+        Countdown.updateText(document.getElementById('js-datedisplay'), Countdown.eventDate);
+        Countdown.updateText(document.getElementById('js-eventtitle'), Countdown.eventTitle);
+
         Countdown.setCounter();
     },
 
@@ -213,18 +226,20 @@ Prefs = {
 
         if (window.widget) {
             setTimeout ('widget.performTransition();', 0);
-
-            // save inputted title and date
-            widget.setPreferenceForKey(titleValue, 'title');
-            widget.setPreferenceForKey(dateValue, 'date');
         }
+
+        // save inputted title and date
+        Storage.set('countdownTitle', titleValue);
+        Storage.set('countdownDate', dateValue);
 
         // update title and date texts on front
         var d = new Date(dateValue);
         Countdown.updateText(document.getElementById('js-datedisplay'), Countdown.getFormattedDate(d));
         Countdown.updateText(document.getElementById('js-eventtitle'), titleValue);
         Countdown.eventDate = dateValue;
-        Countdown.init(dateValue);
+        Countdown.eventTitle = titleValue;
+
+        Countdown.init(dateValue, titleValue);
     }
 };
 
@@ -246,6 +261,43 @@ Validate = {
         return d instanceof Date && isFinite(d);
     }
 };
+
+/* ----------------------------------------
+ * Storage
+ *
+ * Makes a standard interface to store the
+ * values from form.
+ * ---------------------------------------- */
+var Storage = Storage || {};
+
+Storage = {
+    isLocalStorageSupported: function() {
+        try {
+            localStorage.setItem('localStorageTest', 'test');
+            localStorage.removeItem('localStorageTest');
+            return true;
+        } catch(e) {
+            return false;
+        }
+    },
+
+    set: function (itemKey, itemValue) {
+        if (this.isLocalStorageSupported) {
+            return localStorage.setItem(itemKey, itemValue);
+        } else {
+            return widget.setPreferenceForKey(itemValue, itemKey);
+        }
+    },
+
+    get: function (itemKey) {
+        if (this.isLocalStorageSupported) {
+            return localStorage.getItem(itemKey);
+        } else {
+            return widget.preferenceForKey(itemKey);
+        }
+    }
+};
+
 
 
 
