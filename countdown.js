@@ -37,8 +37,10 @@ var Loader = function () {
     var d = new Date();
     var todayString = '' + d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
 
-    var existingTitle = Storage.get('countdownTitle');
-    var existingDate = Storage.get('countdownDate');
+    // check for and set already existing values
+    var existingEvent = Storage.get(Storage.key());
+    var existingTitle = existingEvent.title;
+    var existingDate  = existingEvent.date;
 
     if (existingDate && existingTitle) {
         Countdown.init(existingDate, existingTitle);
@@ -66,7 +68,9 @@ Countdown = {
         Countdown.eventDate = eventDate;
         Countdown.eventTitle = eventTitle;
 
-        Countdown.updateText(document.getElementById('js-datedisplay'), Countdown.eventDate);
+        var d = new Date(Countdown.eventDate);
+
+        Countdown.updateText(document.getElementById('js-datedisplay'), Countdown.getFormattedDate(d));
         Countdown.updateText(document.getElementById('js-eventtitle'), Countdown.eventTitle);
 
         Countdown.setCounter();
@@ -196,8 +200,9 @@ Prefs = {
         var front = document.getElementById('front');
         var back  = document.getElementById('back');
 
-        if (window.widget)
+        if (window.widget) {
             widget.prepareForTransition("ToBack");
+        }
 
         front.style.display = "none";
         back.style.display = "block";
@@ -228,9 +233,13 @@ Prefs = {
             setTimeout ('widget.performTransition();', 0);
         }
 
+        var eventValues = {
+            title: titleValue,
+            date: dateValue
+        };
+
         // save inputted title and date
-        Storage.set('countdownTitle', titleValue);
-        Storage.set('countdownDate', dateValue);
+        Storage.set(Storage.key(), eventValues);
 
         // update title and date texts on front
         var d = new Date(dateValue);
@@ -271,29 +280,35 @@ Validate = {
 var Storage = Storage || {};
 
 Storage = {
-    isLocalStorageSupported: function() {
-        try {
-            localStorage.setItem('localStorageTest', 'test');
-            localStorage.removeItem('localStorageTest');
+    isPreferenceSupported: function() {
+        if (window.widget) {
             return true;
-        } catch(e) {
+        } else {
             return false;
         }
     },
 
     set: function (itemKey, itemValue) {
-        if (this.isLocalStorageSupported) {
-            return localStorage.setItem(itemKey, itemValue);
+        if (this.isPreferenceSupported()) {
+            return widget.setPreferenceForKey(JSON.stringify(itemValue), itemKey);
         } else {
-            return widget.setPreferenceForKey(itemValue, itemKey);
+            return localStorage.setItem(itemKey, JSON.stringify(itemValue));
         }
     },
 
     get: function (itemKey) {
-        if (this.isLocalStorageSupported) {
-            return localStorage.getItem(itemKey);
+        if (this.isPreferenceSupported()) {
+            return JSON.parse(widget.preferenceForKey(itemKey));
         } else {
-            return widget.preferenceForKey(itemKey);
+            return JSON.parse(localStorage.getItem(itemKey));
+        }
+    },
+
+    key: function () {
+        if (this.isPreferenceSupported()) {
+            return 'FC/' + widget.identifier;
+        } else {
+            return 'FC';
         }
     }
 };
