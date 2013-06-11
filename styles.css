@@ -133,12 +133,11 @@ input[type="date"]::-webkit-inner-spin-button{
     -moz-border-radius: 12px;
     border-radius: 12px;
     overflow: hidden;
-    background-color: #000000;
+    background-color: #111111;
 }
 
 .wrap-inner {
-    display: table;
-    height: 100%;
+    min-height: 150px;
     width: 100%;
     padding: 2px 10px;
     border: 3px solid rgba(0, 0, 0, .75);
@@ -153,13 +152,12 @@ input[type="date"]::-webkit-inner-spin-button{
 
 .wrap-inner_depth {
     background-color: transparent;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, .15)), to(rgba(255,255,255,.05))); /* Chrome, Safari 4+ */
-    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, .15), rgba(255,255,255,.05)); /* Chrome 10-25, iOS 5+, Safari 5.1+ */
-    background-image:    -moz-linear-gradient(top, rgba(255, 255, 255, .15), rgba(255,255,255,.05)); /* Firefox 3.6-15 */
-    background-image:      -o-linear-gradient(top, rgba(255, 255, 255, .15), rgba(255,255,255,.05)); /* Opera 11.10-12.00 */
-    background-image:         linear-gradient(to bottom, rgba(255, 255, 255, .15), rgba(255,255,255,.05)); /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
-    box-shadow: 0 8px 16px rgba(255, 255, 255, .35) inset,
-                0 1px 1px rgba(255, 255, 255, .25) inset,
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, .15)), to(rgba(255,255,255,0))); /* Chrome, Safari 4+ */
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, .15), rgba(255,255,255,0)); /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+    background-image:    -moz-linear-gradient(top, rgba(255, 255, 255, .15), rgba(255,255,255,0)); /* Firefox 3.6-15 */
+    background-image:      -o-linear-gradient(top, rgba(255, 255, 255, .15), rgba(255,255,255,0)); /* Opera 11.10-12.00 */
+    background-image:         linear-gradient(to bottom, rgba(255, 255, 255, .15), rgba(255,255,255,0)); /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+    box-shadow: 0 1px 1px rgba(255, 255, 255, .25) inset,
                 0 -2px 3px rgba(0, 0, 0, .25) inset;
 }
 
@@ -274,6 +272,8 @@ input[type="date"]::-webkit-inner-spin-button{
     display: inline-block;
 }
 
+.hList_emphasis { margin-top: 32px; }
+
 .mix-hList_vcenter > * { vertical-align: middle; }
 
 /* ---------------------------------------------------------------------
@@ -303,7 +303,7 @@ input[type="date"]::-webkit-inner-spin-button{
 .inpt {
     height: 25px;
     padding: 4px;
-    margin: 4px 2px;
+    margin: 5px 2px;
     border: 1px solid #444444;
     border-color: #333333 #555555 #666666 #444444;
     -webkit-border-radius: 3px;
@@ -315,7 +315,7 @@ input[type="date"]::-webkit-inner-spin-button{
     font-size: 12px;
 }
 
-.inpt_sml { width: 85px; }
+.inpt_sml { width: 95px; }
 .inpt_med { width: 170px; }
 
 .label-date {

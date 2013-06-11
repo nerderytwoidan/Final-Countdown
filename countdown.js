@@ -233,13 +233,13 @@ Prefs = {
             setTimeout ('widget.performTransition();', 0);
         }
 
-        var eventValues = {
+        var eventProps = {
             title: titleValue,
             date: dateValue
         };
 
         // save inputted title and date
-        Storage.set(Storage.key(), eventValues);
+        Storage.set(Storage.key(), eventProps);
 
         // update title and date texts on front
         var d = new Date(dateValue);
