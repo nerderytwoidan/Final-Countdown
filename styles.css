@@ -351,7 +351,7 @@ input[type="date"]::-webkit-inner-spin-button{
 .progress-circle {
     width: 100px;
     height: 100px;
-    border: 20px solid #222222;
+    border: 20px solid #292929;
     border-radius: 50%;
     position: absolute;
     clip: rect(0, 50px, 100px, 0);
@@ -373,45 +373,18 @@ input[type="date"]::-webkit-inner-spin-button{
     height: 100px;
     width: 100px;
     display: block;
+    position: relative;
+    z-index: 5;
 
     -webkit-transform: rotate(0deg);
 }
 
-.progress-hand:after {
-    content: '';
+.progress-hand-inner {
     height: 50px;
     width: 3px;
     display: block;
     margin-left: 50px;
-    /*background-color: #bada55;*/
     background-color: #6D8032;
-
-    -webkit-animation-name: 'pulsate';
-    -webkit-animation-duration: 1s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-delay: 1s;
-}
-
-/* ---------------------------------------------------------------------
- Second-interval pulsator
------------------------------------------------------------------------- */
-/*.pulse {
-    position: absolute;
-    top: -50px;
-    left: 100px;
-    height: 150px;
-    width: 150px;
-    border: 3px solid rgba(200, 255, 255, .015);
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -o-border-radius: 50%;
-    border-radius: 50%;
-    opacity: 0.0;
-    -webkit-transform: scale(0.1, 0.1);
-    transform: scale(0.1, 0.1);
-
-    box-shadow: 0 0 30px 5px rgba(255, 255, 255, .25) inset;
 
     -webkit-animation-name: 'pulsate';
     -webkit-animation-duration: 1s;
@@ -424,8 +397,11 @@ input[type="date"]::-webkit-inner-spin-button{
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     animation-delay: 1s;
-}*/
+}
 
+/* ---------------------------------------------------------------------
+ Second-interval pulsator
+------------------------------------------------------------------------ */
 @-webkit-keyframes pulsate {
     0%   { opacity: 0.75; }
     78%  { opacity: 0.75; }
