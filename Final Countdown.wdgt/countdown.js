@@ -39,13 +39,19 @@ var Loader = function () {
 
     // check for and set already existing values
     var existingEvent = Storage.get(Storage.key());
-    var existingTitle = existingEvent.title;
-    var existingDate  = existingEvent.date;
+    var existingTitle = null;
+    var existingDate  = null;
+
+    if (existingEvent) {
+        existingTitle = existingEvent.title;
+        existingDate  = existingEvent.date;
+    }
 
     if (existingDate && existingTitle) {
         Countdown.init(existingDate, existingTitle);
     } else {
         Countdown.init(todayString, 'Today');
+        Countdown.updateText(document.getElementById('js-datedisplay'), Countdown.getFormattedDate(d));
     }
 }
 
@@ -74,6 +80,9 @@ Countdown = {
         Countdown.updateText(document.getElementById('js-eventtitle'), Countdown.eventTitle);
 
         Countdown.setCounter();
+
+        // resize window to account for different title lengths
+        Countdown.setHeight();
     },
 
     timer: function () {
@@ -119,6 +128,34 @@ Countdown = {
         } else {
             return '????/??/??';
         }
+    },
+
+    setHeight: function () {
+        var front = document.getElementById('front');
+        var back  = document.getElementById('back');
+        var frontContent = document.getElementById('js-frontcontent');
+        var backContent  = document.getElementById('js-backcontent');
+
+        // reset heights to auto
+        front.style.height = '';
+        back.style.height = '';
+        frontContent.style.height = '';
+        backContent.style.height = '';
+
+        var contentHeight = front.offsetHeight;
+
+        console.log(front.style.height, front.offsetHeight);
+
+        // resize container elements to full height
+        front.style.height = contentHeight + 'px';
+        back.style.height = contentHeight + 'px';
+        frontContent.style.height = contentHeight + 'px';
+        backContent.style.height = contentHeight + 'px';
+
+        console.log(contentHeight);
+
+        // resize window to full height
+        window.resizeTo(200, contentHeight);
     }
 
 };

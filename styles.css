@@ -85,6 +85,12 @@ body {
     line-height: 1.4;
 }
 
+html, body, #front, #back {
+    width: 200px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0);
+}
+
 /* ---------------------------------------------------------------------
  HTML5 Block / Inline Block declarations
 ------------------------------------------------------------------------ */
