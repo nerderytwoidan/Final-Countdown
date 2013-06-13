@@ -12,13 +12,13 @@
     <script type="text/javascript" src="countdown.js"></script>
 
     <!-- Apple Widget JS -->
-    <script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleInfoButton.js"></script>
+    <!--<script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleInfoButton.js"></script>
     <script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleButton.js"></script>
-    <script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleAnimator.js"></script>
+    <script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleAnimator.js"></script>-->
 
-    <!--<script type="text/javascript" src="lib-apple/AppleInfoButton.js"></script>
+    <script type="text/javascript" src="lib-apple/AppleInfoButton.js"></script>
     <script type="text/javascript" src="lib-apple/AppleAnimator.js"></script>
-    <script type="text/javascript" src="lib-apple/AppleButton.js"></script>-->
+    <script type="text/javascript" src="lib-apple/AppleButton.js"></script>
 </head>
 
 <body onload="Loader();">
@@ -52,9 +52,12 @@
         <div class="wrap">
             <div class="wrap-inner wrap-inner_pattern" id="js-backcontent">
                 <form id="js-countdownform">
-                    <ul class="hList hList_emphasis mix-hList_vcenter">
+                    <ul class="hList mix-hList_vcenter">
                         <li>
                             <input class="inpt inpt_med" type="text" placeholder="Event title" id="js-titlevalue" />
+                        </li>
+                        <li>
+                            <input class="inpt inpt_med" type="text" placeholder="Background URL (optional)" id="js-bgvalue" />
                         </li>
                         <li>
                             <input class="inpt inpt_sml" type="text" placeholder="YYYY/MM/DD" id="js-datevalue" />

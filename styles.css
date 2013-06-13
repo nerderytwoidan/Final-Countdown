@@ -70,7 +70,7 @@ img {
 html {
     -webkit-text-size-adjust: none;
     -ms-text-size-adjust: none;
-    font-size: 16px;
+    font-size: 12px;
     color: #ffffff;
 }
 
@@ -83,6 +83,7 @@ html, input, textarea, select, button {
 body {
     background: none transparent;
     line-height: 1.4;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .8);
 }
 
 html, body, #front, #back {
@@ -143,7 +144,6 @@ input[type="date"]::-webkit-inner-spin-button{
 }
 
 .wrap-inner {
-    min-height: 145px;
     width: 100%;
     padding: 2px 10px;
     border: 3px solid rgba(0, 0, 0, .75);
@@ -157,6 +157,7 @@ input[type="date"]::-webkit-inner-spin-button{
 }
 
 .wrap-inner_depth {
+    background-position: center center; /* for custom image URLs */
     background-color: transparent;
     background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, .15)), to(rgba(255,255,255,0))); /* Chrome, Safari 4+ */
     background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, .15), rgba(255,255,255,0)); /* Chrome 10-25, iOS 5+, Safari 5.1+ */
@@ -237,7 +238,7 @@ input[type="date"]::-webkit-inner-spin-button{
     line-height: 1.1;
 }
 
-.hdg_h1 { font-size: 20px; }
+.hdg_h1 { font-size: 16px; }
 
 .mix-hdg_center { text-align: center; }
 .mix-hdg_thin {
@@ -263,7 +264,7 @@ input[type="date"]::-webkit-inner-spin-button{
 .hdr_padMed { padding: 0 8px; }
 
 .hdr_dateinfo {
-    height: 95px;
+    height: 90px;
     padding: 20px 0 0;
     margin: -5px 0 0;
 }
@@ -291,12 +292,12 @@ input[type="date"]::-webkit-inner-spin-button{
  Content Stuff
 ------------------------------------------------------------------------ */
 .text_tiny {
-    font-size: 10px;
+    font-size: 9px;
     line-height: 1;
 }
 
 .text_large {
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .text_tiny:empty {
@@ -323,7 +324,7 @@ input[type="date"]::-webkit-inner-spin-button{
     border-radius: 3px;
     background: none rgba(255, 255, 255, .15);
     color: #ffffff;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .inpt_sml { width: 95px; }
@@ -353,6 +354,7 @@ input[type="date"]::-webkit-inner-spin-button{
     position: absolute;
     left: 50px;
     z-index: 2;
+    opacity: .85;
 }
 
 .progress_isBeforeHalf {
@@ -391,7 +393,7 @@ input[type="date"]::-webkit-inner-spin-button{
 }
 
 .progress-hand-inner {
-    height: 50px;
+    height: 30px;
     width: 3px;
     display: block;
     margin-left: 50px;

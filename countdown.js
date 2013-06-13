@@ -41,16 +41,19 @@ var Loader = function () {
     var existingEvent = Storage.get(Storage.key());
     var existingTitle = null;
     var existingDate  = null;
+    var existingBg    = null;
 
     if (existingEvent) {
         existingTitle = existingEvent.title;
         existingDate  = existingEvent.date;
+        existingBg  = existingEvent.backgroundURL;
     }
 
     if (existingDate && existingTitle) {
         Countdown.init(existingDate, existingTitle);
+        document.getElementById('js-frontcontent').style.backgroundImage = existingBg;
     } else {
-        Countdown.init(todayString, 'Today');
+        Countdown.init(todayString, 'Flip to add event');
         Countdown.updateText(document.getElementById('js-datedisplay'), Countdown.getFormattedDate(d));
     }
 }
@@ -68,6 +71,7 @@ Countdown = {
     eventTitle: '',
     daysToEvent: 0,
     percentOfDayComplete: 0,
+    backgroundURL: '',
     counter: null,
 
     init: function(eventDate, eventTitle) {
@@ -254,6 +258,7 @@ Prefs = {
         var back = document.getElementById("back");
         var titleValue;
         var dateValue;
+        var bgValue;
         var formattedDate = '';
 
         if (window.widget) {
@@ -270,20 +275,36 @@ Prefs = {
             setTimeout ('widget.performTransition();', 0);
         }
 
-        var eventProps = {
-            title: titleValue,
-            date: dateValue
-        };
-
-        // save inputted title and date
-        Storage.set(Storage.key(), eventProps);
-
         // update title and date texts on front
         var d = new Date(dateValue);
         Countdown.updateText(document.getElementById('js-datedisplay'), Countdown.getFormattedDate(d));
         Countdown.updateText(document.getElementById('js-eventtitle'), titleValue);
+
+        // update countdown properties
         Countdown.eventDate = dateValue;
         Countdown.eventTitle = titleValue;
+
+        // update background image if present
+        bgValue = document.getElementById('js-bgvalue').value;
+        if (bgValue) {
+            bgValue = 'url(' + bgValue + ')';
+            Countdown.backgroundURL = 'url(' + bgValue + ')';
+            console.log(bgValue, Countdown.backgroundURL)
+        } else {
+            bgValue = '';
+            Countdown.backgroundURL = '';
+            console.log(bgValue, Countdown.backgroundURL)
+        }
+        document.getElementById('js-frontcontent').style.backgroundImage = bgValue;
+
+        var eventProps = {
+            title: titleValue,
+            date: dateValue,
+            backgroundURL: bgValue
+        };
+
+        // save inputted title and date
+        Storage.set(Storage.key(), eventProps);
 
         Countdown.init(dateValue, titleValue);
     }
