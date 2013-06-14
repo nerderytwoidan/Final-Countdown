@@ -368,6 +368,9 @@ input[type="date"]::-webkit-inner-spin-button{
     border-radius: 50%;
     position: absolute;
     clip: rect(0, 50px, 100px, 0);
+
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 .progress-circle_firsthalf {
@@ -390,6 +393,10 @@ input[type="date"]::-webkit-inner-spin-button{
     z-index: 5;
 
     -webkit-transform: rotate(0deg);
+}
+
+.progress_isBeforeHalf .progress-hand {
+    left: 3px;
 }
 
 .progress-hand-inner {
